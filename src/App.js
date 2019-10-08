@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 // 기초는 React.Componet 에서 extends로 가져온다.
 // App은 React,componet에서 확장된 것임
@@ -18,7 +17,29 @@ class App extends React.Component {
     minus = () => {
         this.setState(current => ({ count: current.count - 1 }));
     };
+    /* componet life cycle
+        먼저 component가 호출되면 render 먼저 실행
+        render가 끝나면 componentDidMount 실행
+
+        setState가 호출되면 coponent가 다시 호출되며
+        render 먼저 실행 
+        update가 완료되면 componentDidUpdate 실행
+
+        페이지를 다른곳으로 옮기거나 다른 일을 수행하여
+        component가 죽게되면(unmount)
+        componentWillUnmount 실행
+    */
+    componentDidMount() {
+        console.log("component rendered");
+    }
+    componentDidUpdate() {
+        console.log("I just updated");
+    }
+    componentWillUnmount() {
+        console.log("Goodbye, cruel world");
+    }
     render() {
+        console.log("im rendering");
         // class componet이기 때문에 this 명시
         return (
             <div>
