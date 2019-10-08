@@ -10,11 +10,13 @@ class App extends React.Component {
     state = {
         count: 0
     };
+    // setState를 사용하면 state를 refresh하고 render함수를 다시 call한다
     add = () => {
-        console.log("add");
+        this.setState(current => ({ count: current.count + 1 }));
     };
+    // count: this.state.cout + 1 하는 것보다 current를 이용한 함수 사용이 좋다.
     minus = () => {
-        console.log("minus");
+        this.setState(current => ({ count: current.count - 1 }));
     };
     render() {
         // class componet이기 때문에 this 명시
