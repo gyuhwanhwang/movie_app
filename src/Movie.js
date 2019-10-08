@@ -24,7 +24,8 @@ function Movie({ year, title, summary, poster, genres }) {
                         </li>
                     ))}
                 </ul>
-                <p className="movie__summary">{summary}</p>
+                {/* string의 앞부부만 보여주기 위해서 slice(시작, 끝) */}
+                <p className="movie__summary">{summary.slice(0, 180)}...</p>
             </div>
         </div>
     );
