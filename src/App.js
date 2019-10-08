@@ -1,11 +1,19 @@
 import React from "react";
-import Potato from "./Potato";
+
+// props.fav 와 {} 내부에 fav를 쓰는 것은 같다
+function Food({ fav }) {
+    return <h1>I like {fav}</h1>;
+}
 
 function App() {
+    // props는 argument로 간다
     return (
         <div>
             <h1>Hello</h1>
-            <Potato />
+            <Food fav="kimchi" />
+            <Food fav="ramen" />
+            <Food fav="samgiopsal" />
+            <Food fav="chukumi" />
         </div>
     );
 }
