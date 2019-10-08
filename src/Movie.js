@@ -7,14 +7,24 @@ import "./Movie.css";
 
 // argument 넘겨줄때 { } 꼭 씌워주자!!!
 // id는 link 등 쓸 때 사용
-function Movie({ year, title, summary, poster }) {
+function Movie({ year, title, summary, poster, genres }) {
     return (
-        <div class="movie">
+        // class -> className
+        // for -> htmlFor
+        <div className="movie">
             <img src={poster} alt={title} title={title} />
-            <div class="movie__data">
-                <h3 class="movie__title">{title}</h3>
-                <h5 class="movie__year">{year}</h5>
-                <p class="movie__summary">{summary}</p>
+            <div className="movie__data">
+                <h3 className="movie__title">{title}</h3>
+                <h5 className="movie__year">{year}</h5>
+                <ul className="genres">
+                    {genres.map((genre, index) => (
+                        // map은 항상 key가 필요. argument로 item number도 준다
+                        <li key={index} className="genres__genre">
+                            {genre}
+                        </li>
+                    ))}
+                </ul>
+                <p className="movie__summary">{summary}</p>
             </div>
         </div>
     );
@@ -26,7 +36,8 @@ Movie.propTypes = {
     year: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     summary: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired
+    poster: PropTypes.string.isRequired,
+    genres: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 // @@잊지말자@@
