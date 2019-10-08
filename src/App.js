@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios"; // for fetch
+import Movie from "./Movie";
 
 // 기초는 React.Componet 에서 extends로 가져온다.
 // App은 React,componet에서 확장된 것임
@@ -15,16 +16,38 @@ class App extends React.Component {
     // 그걸 알리기 위해서 비동기 처리 async, await
     // axios가 끝날 때까지 기다렸다가 계속해라
     getMovies = async () => {
-        const movies = await axios.get(
-            "https://yts-proxy.now.sh/list_movies.json"
+        // object.data.data.movies <-- 얻고자 하는거
+        const {
+            data: {
+                data: { movies }
+            }
+        } = await axios.get(
+            "https://yts-proxy.now.sh/list_movies.json?sort_by=rating?sort_by=rating"
         );
+        // movies(state) : movies(axios)
+        this.setState({ movies, isLoading: false });
     };
     componentDidMount() {
         this.getMovies();
     }
     render() {
-        const { isLoading } = this.state;
-        return <div>{isLoading ? "Loading..." : "We are ready"}</div>;
+        const { isLoading, movies } = this.state;
+        return (
+            <div>
+                {isLoading
+                    ? "Loading..."
+                    : movies.map(movie => (
+                          <Movie
+                              key={movie.id}
+                              id={movie.id}
+                              year={movie.year}
+                              title={movie.title}
+                              summary={movie.summary}
+                              poster={movie.medium_cover_image}
+                          />
+                      ))}
+            </div>
+        );
     }
 }
 
