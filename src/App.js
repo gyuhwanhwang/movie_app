@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios"; // for fetch
 
 // 기초는 React.Componet 에서 extends로 가져온다.
 // App은 React,componet에서 확장된 것임
@@ -10,11 +11,16 @@ class App extends React.Component {
         isLoading: true,
         movies: []
     };
+    // axios.get()이 시간이 좀 걸릴 수 있으므로 기다려줘야 하고
+    // 그걸 알리기 위해서 비동기 처리 async, await
+    // axios가 끝날 때까지 기다렸다가 계속해라
+    getMovies = async () => {
+        const movies = await axios.get(
+            "https://yts-proxy.now.sh/list_movies.json"
+        );
+    };
     componentDidMount() {
-        // 6초 후에 timeout이 일어나서 함수 실행
-        setTimeout(() => {
-            this.setState({ isLoading: false });
-        }, 6000);
+        this.getMovies();
     }
     render() {
         const { isLoading } = this.state;
